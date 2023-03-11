@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event List</title>
+</head>
+<body>
+    <h1>Event List</h1>
+    {% for event in events %}
+      <div>
+          <h3>{{event.theme}}</h3>
+          <h4>{{event.date}} - {{event.start}}</h4>
+          <h5>{{event.attendee_set.count}} Registered</h5>
+          <a href="{% url 'console' %'}">Manage</a>
+      </div>
+    {% endfor %}
+</body>
+</html>

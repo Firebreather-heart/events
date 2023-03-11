@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page title</title>
+</head>
+<body>
+    <h1>Event Manager</h1>
+    <form method="POST" action="{% url 'console' %}">
+       {% csrf_token %} 
+       {{form.as_p}}
+       <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
