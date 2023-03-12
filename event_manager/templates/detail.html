@@ -1,0 +1,40 @@
+<div>
+    <h2>Current event details:</h2>
+    <p>Theme: {{ event.theme }}</p>
+    <p>Date: {{ event.date }}</p>
+    <p>Start time: {{ event.start }}</p>
+    {% if event.end %}
+    <p>End time: {{ event.end }}</p>
+    {% endif %}
+    {% if event.img %}
+    <img src="{{ event.img.url }}" alt="{{ event.theme }} image" width="250px">
+    {% endif %}
+    <p>Description: {{ event.desc }}</p>
+    <p><a href="{% url 'event_del' event.link %}">Cancel Event</a></p>
+    <p><a href="{% url 'invite' event.link %}">send invitations</a></p>
+</div>
+<div>
+    <h2>Speakers</h2>
+    {% for speaker in speakers %}
+        <p>{{speaker.fn}}</p>
+        <p>{{speaker.bio}}</p>
+        <img src="{%if speaker.img %}{{ speaker.img.url }}{% endif %}" width="250px" alt="">
+        <p><a href="{% url 'del_s' event.link speaker.id %}">Remove</a></p>
+    {%empty%}
+        <p>No speakers added for this event</p>
+    {% endfor %}
+    <p><a href="{% url 'add_speaker' event.link %}">Add speaker</a></p>
+    
+</div>
+<div>
+    <h2>Partners</h2>
+    {% for partner in partners %}
+    <p>{{partner.name}}</p>
+    <img src="{%if partner.img %}{{partner.img.url}}{% endif %}" width="250px" alt="">
+    <a href="{% url 'del_p' event.link partner.id %}">Remove</a>
+    {%empty%}
+        <p>No partners added for this event</p>
+    {% endfor %}
+    <a href="{% url 'add_partner' event.link %}">Add partner</a>
+    
+</div>

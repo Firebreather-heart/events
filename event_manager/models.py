@@ -9,19 +9,22 @@ class Event(models.Model):
     end = models.TimeField(null =True, blank = True)
     img = models.ImageField(upload_to='media', blank= False)
     desc = models.TextField(max_length= 5000)
-    link = models.CharField(max_length=12)
+    location = models.CharField(max_length=150, default = 'virtual')
+    link = models.CharField(max_length=12,unique=True)
+
+    def __str__(self) -> str:
+        return f'{self.theme}'
     
 class Attendee(models.Model):
     f_name = models.CharField(max_length=50,)
     l_name = models.CharField(max_length= 50)
-    email = models.EmailField(max_length = 100)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event")
+    email = models.EmailField(max_length = 100, unique=True)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="attendee")
 
 class Mailing(models.Model):
     mail = models.EmailField(max_length= 50)
  
-
-    
+  
     
 class Speaker(models.Model):
     fn = models.CharField(max_length = 100)
