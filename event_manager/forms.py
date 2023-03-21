@@ -2,6 +2,8 @@ from django.forms import ModelForm as Mf
 from django import forms
 from .models import Event,Attendee,Mailing, Speaker,Partner
 
+
+
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event
@@ -13,15 +15,18 @@ class EventForm(forms.ModelForm):
         }
        
 class AttendForm(forms.ModelForm):
-    event = forms.ModelChoiceField(queryset = Event.objects.order_by('date'))
     class Meta:
         model = Attendee
         fields = '__all__'
+
+    def add_link(self, link):
+        self.link = link
+        return self 
     
     def save(self, commit: bool = ...):
-        speaker = super().save(commit=False)
-        ev = self.cleaned_data['event']
-        speaker.event = ev
+        attendee = super().save(commit=False)
+        event = Event.objects.get(link=self.link)
+        attendee.event = event
         return super().save(commit=True)
 
 class MailingForm(Mf):
@@ -30,26 +35,34 @@ class MailingForm(Mf):
         fields = '__all__'
         
 class SpeakerForm(Mf):
-    event = forms.ModelChoiceField(queryset = Event.objects.order_by('date'))
+    #event = forms.ModelChoiceField(queryset = Event.objects.order_by('date'))
     class Meta:
         model = Speaker
         fields = ['fn', 'bio','img']
     
+    def add_link(self, link):
+        self.link = link
+        return self 
+    
     def save(self, commit: bool = ...):
         speaker = super().save(commit=False)
-        ev = self.cleaned_data['event']
-        speaker.event = ev
+        event = Event.objects.get(link=self.link)
+        speaker.event = event
         return super().save(commit=True)
         
 
 class PartnerForm(Mf):
-    event = forms.ModelChoiceField(queryset = Event.objects.order_by('date'))
+    #event = forms.ModelChoiceField(queryset = Event.objects.order_by('date'))
     class Meta:
         model = Partner
         fields = ['name', 'img']
     
+    def add_link(self, link):
+        self.link = link
+        return self 
+    
     def save(self, commit: bool = ...):
         speaker = super().save(commit=False)
-        ev = self.cleaned_data['event']
-        speaker.event = ev
+        event = Event.objects.get(link=self.link)
+        speaker.event = event
         return super().save(commit=True)

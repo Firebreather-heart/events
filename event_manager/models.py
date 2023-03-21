@@ -15,10 +15,12 @@ class Event(models.Model):
     def __str__(self) -> str:
         return f'{self.theme}'
     
+    
+    
 class Attendee(models.Model):
     f_name = models.CharField(max_length=50,)
     l_name = models.CharField(max_length= 50)
-    email = models.EmailField(max_length = 100, unique=True)
+    email = models.EmailField(max_length = 100,)
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="attendee")
 
 class Mailing(models.Model):

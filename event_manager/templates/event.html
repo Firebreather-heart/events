@@ -1,22 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Event List</title>
-</head>
-<body>
-    <h1>Event List</h1>
-    <small><p><a href="{% url 'console' %}">Add new event</a></p></small>
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <div class="add-event w3-round-small w3-card w3-button" id="add-event">
+        <a class='' href="{% url 'console' %}">+</a>
+    </div>
     {% for event in events %}
-      <div>
-          <h3>{{event.theme}}</h3>
-          <h4>{{event.date}} - {{event.start}}</h4>
-          <h5>{{event.attendee.count}} Registered</h5>
-          <img src="{{event.img.url}}" alt="event flyer" width="250px">
-          <a href="{% url 'edit' event.link %}">Manage</a>
-      </div>
-      {% empty %}
-       <p>No events yet</p>
+    <div class="w3-row w3-mobile">
+        <div class="s1 m4 w3-card w3-margin-bottom w3-round-small">
+            <img src="{{event.img.url}}" alt="event flyer" width="100%" class="w3-hover-opacity">
+            <div class="w3-padding">
+                <h3 class="e-theme">{{event.theme}}</h3>
+                <h4 class="date">{{event.date}} - {{event.start}} / {{event.attendee.count}} Registered</h4>
+                <a class="w3-text-blue" href="{% url 'event_detail' event.link %}">Manage</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No events yet</p>
     {% endfor %}
-</body>
-</html>
+</div>
+{% endblock content %}

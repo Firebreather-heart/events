@@ -1,33 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-
-    <body>
-        <h2>{{event.theme}}</h2>
-        <form action="" method="post">
-            {% csrf_token %}
-            {{form.as_p}}
-            <button type="submit">submit</button>
-            <div>
-                {% if messages %}
-                <ul class="messages">
-                    {% for message in messages %}
-                    <li class="{{ message.tags }}">
-                        {{ message|safe }}
-                        <a href="#" class="close">x</a>
-                    </li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
-            </div>
-        </form>
-
-    </body>
-
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <h2 class="e-theme">{{event.theme}}</h2>
+    <div class="w3-card-4 w3-shadow">
+        <div class="w3-display-container">
+            <img src="{{ event.img.url }}" alt="{{ event.theme }} image" width="100%">
+        </div>
+        <p class="w3-padding ">{{event.desc}}</p>
+    </div>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class=" button-p" type="submit">submit</button>
+        <div>
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li class="{{ message.tags }}">
+                    {{ message|safe }}
+                    <a href="#" class="close">x</a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,144 @@
+@media (prefers-color-scheme: dark) {
+    .button-p {
+        background-color: blue;
+        color: aliceblue;
+        border: none;
+        display: inline-block;
+        padding: 8px 16px;
+        vertical-align: middle;
+        overflow: hidden;
+        text-decoration: none;
+        color: inherit;
+        text-align: center;
+        cursor: pointer;
+        white-space: nowrap
+    }
+
+    body {
+        color: aliceblue;
+        background-color: #0c0909;
+        font-family: 'Times New Roman', Georgia, serif;
+    }
+
+    .content {
+        margin-top: 1px;
+    }
+
+    header {
+        letter-spacing: 4px;
+    }
+
+    .bar {
+        background-color: #0c0909;
+        color: aliceblue;
+        font-weight: 900;
+        box-shadow: 2px 1px 3px white;
+    }
+
+    .add-event {
+        padding: 15px;
+        font-weight: 900;
+        font-size: 2em;
+        position: fixed;
+        bottom: 15px;
+        right: 15px;
+        text-decoration: none;
+        background-color: aliceblue;
+        max-height: 80px;
+        text-align: center;
+        color: rgb(21, 12, 109);
+    }
+
+    input,
+    textarea,
+    select {
+        padding: 8px;
+        display: block;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        width: 100%;
+        background-color: rgb(220, 229, 235);
+        border-radius: 5px;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        color: grey;
+        background-color: rgb(243, 244, 246);
+        font-weight: 700;
+        font-family: 'Times New Roman', Georgia, serif;
+    }
+
+    .button-p {
+        background-color: blue;
+        color: white;
+        border: none;
+        display: inline-block;
+        padding: 8px 16px;
+        vertical-align: middle;
+        overflow: hidden;
+        text-decoration: none;
+        color: inherit;
+        text-align: center;
+        cursor: pointer;
+        white-space: nowrap;
+        font-weight: 900;
+    }
+
+    .content {
+        margin-top: 1px;
+    }
+
+    header {
+        letter-spacing: 4px;
+    }
+
+    .bar {
+        background-color: white;
+        color: rgb(5, 4, 65);
+        font-weight: 900;
+    }
+
+    .add-event {
+        padding: 15px;
+        font-weight: 900;
+        font-size: 2em;
+        position: fixed;
+        bottom: 15px;
+        right: 15px;
+        text-decoration: none;
+        background-color: rgba(29, 41, 211, 0.774);
+        max-height: 80px;
+        text-align: center;
+        color: aliceblue;
+    }
+
+    .e-theme {
+        color: #0c0909;
+    }
+
+    input,
+    textarea,
+    select {
+        padding: 8px;
+        display: block;
+        border: 1px solid grey;
+        border-bottom: 1px solid #ccc;
+        width: 100%;
+        border-radius: 5px;
+    }
+
+}
+
+a {
+    text-decoration: none;
+}
+
+.e-theme {
+    text-transform: capitalize;
+}
+
+.date {
+    font-size: 0.8em;
+}

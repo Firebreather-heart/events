@@ -1,26 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <title>Page title</title>
-    </head>
-
-    <body>
-        <h1>Event Manager</h1>
-        <form method="POST"  enctype="multipart/form-data">
-            {{ user_form.non_field_errors }}
-            {% if user_form.subject.errors %}
-            <ol>
-                {% for error in user_form.subject.errors %}
-                <li><strong>{{ error|escape }}</strong></li>
-                {% endfor %}
-            </ol>
-            {% endif %}
-            {% csrf_token %}
-            {{form.as_p}}
-            <button type="submit">Submit</button>
-        </form>
-    </body>
-
-</html>
+{% extends 'base.html' %}
+{% block content %} 
+<div>
+    <h1>Event Creator</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {{ user_form.non_field_errors }}
+        {% if user_form.subject.errors %}
+        <ol>
+            {% for error in user_form.subject.errors %}
+            <li><strong>{{ error|escape }}</strong></li>
+            {% endfor %}
+        </ol>
+        {% endif %}
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="button-p w3-round" type="submit">Submit</button>
+    </form>
+</div>
+{% endblock content %}

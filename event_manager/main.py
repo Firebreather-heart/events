@@ -22,7 +22,7 @@ ctx = ssl.create_default_context()
 default_subject = "Message from firemail"
 
 
-def sendmail(payload: str, recipient:str, subject:str = default_subject, sender:str =SENDER, password:str = PASSWORD, type='plain', filepath:str=None, client='smtp.gmail.com'):
+def sendmail(payload: str, recipient:str, subject:str = default_subject, sender:str =SENDER, password:str = PASSWORD, type='plain', filepath=None, client='smtp.gmail.com'):
     """
         >>> payload:    is the string containing the message, either in plain text or html format
         >>> recipient:  is the email address of the reciever
@@ -55,3 +55,5 @@ def sendmail(payload: str, recipient:str, subject:str = default_subject, sender:
         server.login(sender, password)
         server.sendmail(sender, recipient, message.as_string())
     print('Check mail for success!')
+
+#sendmail('hello', 'dtenny95@gmail.com', 'tests')

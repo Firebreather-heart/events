@@ -1,23 +1,18 @@
+from datetime import datetime
 from django.shortcuts import render,redirect
 from requests import delete
 from .models import Attendee,Event,Mailing,Partner,Speaker
 from .forms import AttendForm,EventForm,MailingForm,PartnerForm,SpeakerForm
 from django.contrib import messages
 from .custom import require_key
+from .tasks import send_mail_task
+import time
 
 # Create your views here.
 
 KEYS = ['evm_rmp102', 'evm_lfb345', 'evm_ayd666']
 
-import smtplib
-import ssl,threading
-from .main import sendmail
-from django.http import HttpResponse
-from django.contrib.auth import authenticate, login
 
-# Define the transport variables
-password = "jkadifnyyrpdryeb"    # Your app password goes here
-sender = "lordfirebcorps@gmail.com"    # Your e-mail address
 
 def register(request, link):
     event = Event.objects.get(link=link)
@@ -42,12 +37,15 @@ def register(request, link):
                     date, time and location.
                     Have a nice day!
                 '''
-                try:
-                    sendmail(payload=payload, recipient=mail, subject='Event Registration', sender=sender, password=password,)
-                except:
-                    pass 
+                task_result = send_mail_task.delay(payload=payload, recipient=mail, subject='Event Registration',filepath=None )
+                if task_result.successful():
+                    print(f'Reg successful')
+                else:
+                    print(f'Error sending reg msg: {task_result.result}')
+
     else:
         form = AttendForm()
+        form = form.add_link(link) 
     return render(request, 'event_page.html', {'form': form, 'event':event})
 
 
@@ -90,6 +88,7 @@ def new_partner(request, link):
         return redirect('event_detail', link=link)
     else:
         form = PartnerForm()
+        form = form.add_link(link)
     ctx = {
         'form': form,
         'event': Event.objects.get(link=link)
@@ -133,6 +132,7 @@ def new_speaker(request, link):
         return redirect('event_detail', link=link)
     else:
         form = SpeakerForm()
+        form = form.add_link(link)
     ctx = {
         'form': form,
         'event': Event.objects.get(link=link)
@@ -141,14 +141,14 @@ def new_speaker(request, link):
 
 @require_key
 def events(request):
-        ev = Event.objects.order_by('date')   
+        ev = Event.objects.filter(date__gte = datetime.today()).order_by('date')   
         return render(request, 'event.html', {'events':ev})    
 
 @require_key
 def event_detail(request, link):
     ev = Event.objects.get(link=link)
     partners = Partner.objects.filter(event = ev)
-    speakers = Speaker.objects.filter(event=ev)
+    speakers = Speaker.objects.filter(event= ev)
     ctx = {
         'event':ev,
         'partners':partners,
@@ -170,7 +170,23 @@ def edit_event(request, link):
 
 @require_key
 def sendIv(request, link):
-    event = Event.objects.get(link = link)
-    attendee = event.attendee.all()
-    print(attendee)
-    return HttpResponse('working')
+    if request.method == 'POST':
+        event = Event.objects.get(link = link)
+        attendee = event.attendee.all()
+        subject = request.POST.get('sub')
+        content = request.POST.get('cont')
+        for person in attendee:
+            recipient = str(person.email)
+            task_result = send_mail_task.delay(
+                payload = content, 
+                recipient = recipient,
+                subject = subject,
+                filepath = None,
+            )
+            if task_result.successful():
+                print(f'Invitation sent to {person.f_name} ({recipient})')
+            else:
+                print(f'Error sending invitation to {person.f_name} ({recipient}): {task_result.result}')
+            return(redirect('event_detail', link=link))
+
+    return render(request, 'email.html')

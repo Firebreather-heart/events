@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'w3.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <script src="{% static 'index.js' %}"></script>
+</head>
+<body>
+    <header class="  w3-mobile  ">
+        <div class="w3-padding w3-bar bar w3-card">
+            <a href="{% url 'event_list' %}" class="w3-bar-item w3-button">RAF Events</a>
+        </div>
+    </header>
+    <div class="w3-content w3-padding w3-mobile content">
+        {% block content %}
+        {% endblock content %}
+    </div>
+</body>
+</html>
