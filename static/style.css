@@ -60,6 +60,10 @@
         background-color: rgb(220, 229, 235);
         border-radius: 5px;
     }
+    .bb {
+        /*border-bottom: 0.01px solid #fff;*/
+        box-shadow: 0px 1px aliceblue;
+    }
 }
 
 @media (prefers-color-scheme: light) {

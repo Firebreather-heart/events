@@ -6,8 +6,8 @@
     </div>
     {% for event in events %}
     <div class="w3-row w3-mobile">
-        <div class="s1 m4 w3-card w3-margin-bottom w3-round-small">
-            <img src="{{event.img.url}}" alt="event flyer" width="100%" class="w3-hover-opacity">
+        <div class="s1 m4 w3-card bb w3-margin-bottom w3-round-small">
+            <img class="w3-image" src="{{event.img.url}}" alt="event flyer" width="100%" class="w3-hover-opacity">
             <div class="w3-padding">
                 <h3 class="e-theme">{{event.theme}}</h3>
                 <h4 class="date">{{event.date}} - {{event.start}} / {{event.attendee.count}} Registered</h4>

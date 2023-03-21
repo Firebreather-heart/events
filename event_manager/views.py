@@ -132,7 +132,7 @@ def new_speaker(request, link):
         return redirect('event_detail', link=link)
     else:
         form = SpeakerForm()
-        form = form.add_link(link)
+      #  form = form.add_link(link)
     ctx = {
         'form': form,
         'event': Event.objects.get(link=link)

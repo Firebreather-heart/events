@@ -7,7 +7,7 @@
         {% if user_form.subject.errors %}
         <ol>
             {% for error in user_form.subject.errors %}
-            <li><strong>{{ error|escape }}</strong></li>
+            <li><strong class="w3-red">{{ error|escape }}</strong></li>
             {% endfor %}
         </ol>
         {% endif %}

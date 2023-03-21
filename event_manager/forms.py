@@ -25,7 +25,7 @@ class AttendForm(forms.ModelForm):
     
     def save(self, commit: bool = ...):
         attendee = super().save(commit=False)
-        event = Event.objects.get(link=self.link)
+        event = self.cleaned_data['event'] #Event.objects.get(link=self.link)
         attendee.event = event
         return super().save(commit=True)
 
@@ -34,8 +34,8 @@ class MailingForm(Mf):
         model = Mailing
         fields = '__all__'
         
-class SpeakerForm(Mf):
-    #event = forms.ModelChoiceField(queryset = Event.objects.order_by('date'))
+class SpeakerForm(forms.ModelForm):
+    event = forms.ModelChoiceField(queryset = Event.objects.order_by('date'))
     class Meta:
         model = Speaker
         fields = ['fn', 'bio','img']
@@ -46,7 +46,7 @@ class SpeakerForm(Mf):
     
     def save(self, commit: bool = ...):
         speaker = super().save(commit=False)
-        event = Event.objects.get(link=self.link)
+        event  = self.cleaned_data['event']
         speaker.event = event
         return super().save(commit=True)
         
@@ -63,6 +63,7 @@ class PartnerForm(Mf):
     
     def save(self, commit: bool = ...):
         speaker = super().save(commit=False)
-        event = Event.objects.get(link=self.link)
+       # event = Event.objects.get(link=self.link)
+        event = self.cleaned_data['event']
         speaker.event = event
         return super().save(commit=True)
