@@ -1,27 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-
-    <body>
-        <h3>Super User Login</h3>
-        <form action="" method="post">
-            {% csrf_token %}
-            <label for="key">Enter Secret Key</label>
-            <input type="password" name="key" id="key">
-            <button type="submit">Submit</button>
-            <div class="w3-red  w3-top" id="timecatch">
-                {% for message in messages %}
-                <div {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}
-                    {% endfor %}
-                </div>
-        </form>
-
-    </body>
-
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <h3>Super User Login</h3>
+    <form action="" method="post">
+        {% csrf_token %}
+        <label for="key">Enter Secret Key</label>
+        <input type="password" name="key" id="key">
+        <button type="submit">Submit</button>
+        <div class="w3-red  w3-top" id="timecatch">
+            {% for message in messages %}
+            <div {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}
+                {% endfor %}
+            </div>
+    </form>
+</div>
+{% endblock content %}

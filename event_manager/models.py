@@ -18,8 +18,8 @@ class Event(models.Model):
     
     
 class Attendee(models.Model):
-    f_name = models.CharField(max_length=50,)
-    l_name = models.CharField(max_length= 50)
+    first_name = models.CharField(max_length=50,)
+    last_name = models.CharField(max_length= 50)
     email = models.EmailField(max_length = 100,)
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="attendee")
 
@@ -29,7 +29,7 @@ class Mailing(models.Model):
   
     
 class Speaker(models.Model):
-    fn = models.CharField(max_length = 100)
+    full_name = models.CharField(max_length = 100)
     img = models.ImageField(upload_to='media/speakers', blank = True, null = True)
     bio = models.TextField(max_length = 1000)
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name = "speakers")

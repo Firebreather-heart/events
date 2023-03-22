@@ -1,4 +1,3 @@
-from django.forms import ModelForm as Mf
 from django import forms
 from .models import Event,Attendee,Mailing, Speaker,Partner
 
@@ -17,53 +16,20 @@ class EventForm(forms.ModelForm):
 class AttendForm(forms.ModelForm):
     class Meta:
         model = Attendee
-        fields = '__all__'
+        fields = ['first_name', 'last_name', 'email']
 
-    def add_link(self, link):
-        self.link = link
-        return self 
-    
-    def save(self, commit: bool = ...):
-        attendee = super().save(commit=False)
-        event = self.cleaned_data['event'] #Event.objects.get(link=self.link)
-        attendee.event = event
-        return super().save(commit=True)
-
-class MailingForm(Mf):
+class MailingForm(forms.ModelForm):
     class Meta:
         model = Mailing
         fields = '__all__'
         
 class SpeakerForm(forms.ModelForm):
-    event = forms.ModelChoiceField(queryset = Event.objects.order_by('date'))
     class Meta:
         model = Speaker
-        fields = ['fn', 'bio','img']
+        fields = ['full_name', 'bio','img']
     
-    def add_link(self, link):
-        self.link = link
-        return self 
-    
-    def save(self, commit: bool = ...):
-        speaker = super().save(commit=False)
-        event  = self.cleaned_data['event']
-        speaker.event = event
-        return super().save(commit=True)
-        
-
-class PartnerForm(Mf):
-    #event = forms.ModelChoiceField(queryset = Event.objects.order_by('date'))
+class PartnerForm(forms.ModelForm):
     class Meta:
         model = Partner
         fields = ['name', 'img']
     
-    def add_link(self, link):
-        self.link = link
-        return self 
-    
-    def save(self, commit: bool = ...):
-        speaker = super().save(commit=False)
-       # event = Event.objects.get(link=self.link)
-        event = self.cleaned_data['event']
-        speaker.event = event
-        return super().save(commit=True)

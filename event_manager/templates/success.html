@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="w3-main w3-card-4 ">
+    <img src="{{event.img.url}}" class="w3-image" alt="">
+    <div class="w3-padding w3-blue">
+        <p class="w3-xlarge">{{event.theme}}</p>
+        <p class="w3-xxlarge">You have successfully registered for the event </p>
+    </div>
+</div>
+{% endblock content %}

@@ -1,59 +1,62 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="">
-    <div>
-        {% if event.img %}
-        <img class="w3-image" src="{{ event.img.url }}" alt="{{ event.theme }} image" width="100%">
-        {% endif %}
-        <div class="w3-padding">
-            <p><span class="w3-text-blue w3-large">Theme:</span> {{ event.theme }}</p>
-            <p><span class="w3-text-blue w3-large">Date:</span>{{ event.date }}</p>
-            <p><span class="w3-text-blue w3-large">Start time:</span> {{ event.start }}</p>
-            {% if event.end %}
-            <p><span class="w3-text-blue w3-large">End time:</span> {{ event.end }}</p>
-            {% endif %}
+<div>
+  {% if event.img %}
+  <img class="w3-image" src="{{ event.img.url }}" alt="{{ event.theme }} image" width="100%">
+  {% endif %}
+  <div class="w3-padding">
+    <p><span class="w3-text-blue w3-large">Theme:</span> {{ event.theme }}</p>
+    <p><span class="w3-text-blue w3-large">Date:</span>{{ event.date }}</p>
+    <p><span class="w3-text-blue w3-large">Start time:</span> {{ event.start }}</p>
+    <p><span class="w3-text-blue w3-large">Location:</span> {{ event.location }}</p>
+    {% if event.end %}
+    <p><span class="w3-text-blue w3-large">End time:</span> {{ event.end }}</p>
+    {% endif %}
 
-            <p><span class="w3-text-blue w3-large">Description:</span> {{ event.desc }}</p>
-            <p>
-                <a class="w3-btn w3-blue" href="{% url 'invite' event.link %}">Send Invitations</a>
-                <a class="w3-btn w3-blue" href="{% url 'edit' event.link %}">Edit Event</a>
-            </p>
-            <p class="w3-button w3-red"><a href="{% url 'event_del' event.link %}">Cancel Event</a></p>
+    <p><span class="w3-text-blue w3-large">Description:</span> {{ event.desc }}</p>
+    <p>
+      <a class="w3-btn w3-blue" href="{% url 'invite' event.link %}">Send Invitations</a>
+      <a class="w3-btn w3-blue" href="{% url 'edit' event.link %}">Edit Event</a>
+    </p>
+    <!-- <p class="w3-button w3-red"><a href="{% url 'event_del' event.link %}">Cancel Event</a></p> -->
 
-                <a href="{% url 'event_home' event.link  %}" class="w3-text-blue"  id="cp">Register here http://localhost:8000/evm/{{event.link}}</a>
-        </div>
+    <a href="{% url 'event_home' event.link  %}" class="w3-text-blue" id="cp">Register here
+      http://localhost:8000/evm/{{event.link}}</a>
+  </div>
+  <div class="tab">
+    <div onclick="selectSp()" class="tab-item space half " id="item1">
+      <strong>Speakers</strong> <a style="border:none;outline:0;" class="w3-text-white w3-right" id="sneaky-s"
+        href="{% url 'add_speaker' event.link %}"><strong>+</strong></a>
     </div>
-    <div>
-        <h2>Speakers</h2>
-        {% for speaker in speakers %}
-        <div class="w3-card-4">
-          <img class="w3-image" src="{%if speaker.img %}{{ speaker.img.url }}{% endif %}" width="100%" alt="">
+    <div onclick="selectSp()" class="tab-item space half" id="item2">
+      <strong>Partners</strong> <a style="border:none;outline:0;" class="w3-text-white w3-right" id="sneaky-p"
+        href="{% url 'add_partner' event.link %}"><strong>+</strong></a>
+    </div>
+    <div id="sneaky-p">
+      {% for partner in partners %}
+      <div class="w3-card-4 ">
+        <img class="w3-image" src="{% if partner.img %}{{ partner.img.url }}{% endif %}" width="100%" alt="">
         <div class="w3-padding">
-           <p>{{speaker.fn}}</p>
-           <p>{{speaker.bio}}</p>
-           <p><a class="w3-button w3-red" href="{% url 'del_s' event.link speaker.id %}">Remove</a></p>
-           {%empty%}
-           <p>No speakers added for this event</p>
+          <strong class="w3-text-blue">{{partner.name}}</strong>
+          <p><a class="w3-button w3-red" href="{% url 'del_p' event.link partner.id %}">Remove</a></p>
         </div>
       </div>
-        {% endfor %}
-        <p><a class="w3-button w3-blue" href="{% url 'add_speaker' event.link %}">Add speaker</a></p>
-   </div>
-    <div>
-        <h2>Partners</h2>
-        {% for partner in partners %}
-      <div class="w3-card-4">
-        <img class="w3-image" src="{%if partner.img %}{{partner.img.url}}{% endif %}" width="250px" alt="">
-        <div class="w3-padding">
-            <p>{{partner.name}}</p>
-            <a class="w3-button w3-red"  href="{% url 'del_p' event.link partner.id %}">Remove</a>
-             {%empty%}
-              <p>No partners added for this event</p>
-        </div>
-     </div>
-        {% endfor %}
-        <a class="w3-button w3-blue" href="{% url 'add_partner' event.link %}">Add partner</a>
-
+      {% endfor %}
     </div>
+    <div id="sneaky-s">
+      {% for speaker in speakers %}
+      <div class="w3-card-4 ">
+        <img class="w3-image" src="{%if speaker.img %}{{ speaker.img.url }}{% endif %}" width="100%" alt="">
+        <div class="w3-padding">
+          <strong class="w3-text-blue">{{speaker.full_name}}</strong>
+          <p class="w3-text-blue">{{speaker.bio}}</p>
+          <p><a class="w3-button w3-red" href="{% url 'del_s' event.link speaker.id %}">Remove</a></p>
+          {% empty %}
+          <p class="w3-padding w3-text-blue">No speakers added for this event</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 </div>
 {% endblock content %}

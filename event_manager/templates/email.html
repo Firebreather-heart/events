@@ -1,23 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div>
-        <form action="" method="post">
-            {% csrf_token %}
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <form action="" method="post">
+        {% csrf_token %}
+        <p>
             <label for="sub">Mail Subject:</label>
             <input type="text" name="sub" id="sub">
+        </p>
 
+        <p>
             <label for="cont">Mail content:</label>
-            <input type="text" name="cont" id="cont">
+            <textarea name="cont" id="cont" cols="30" rows="10"></textarea>
+            
+        </p>
 
-            <input type="submit" value="submit">
-        </form>
-    </div>
-</body>
-</html>
+        <button class="button-p" type="submit">Send Invitations</button>
+    </form>
+</div>
+{% endblock content %}

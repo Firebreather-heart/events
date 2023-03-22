@@ -6,17 +6,44 @@
         <div class="w3-display-container">
             <img src="{{ event.img.url }}" alt="{{ event.theme }} image" width="100%">
         </div>
-        <p class="w3-padding ">{{event.desc}}</p>
+        <p class="w3-padding"><span class="e-theme">Date:</span> {{event.date}} </p>
+        <p class="w3-padding w3-large"><span class="e-theme">Location:</span> {{event.location}}</p>
+        <p class="w3-padding  w3-large">{{event.desc}}</p>
+        <p class=""><a href="#reg" class="button-p  w3-padding w3-blue">Register</a></p>
     </div>
-    <form action="" method="post">
+    <h2>Speakers</h2>
+    {% for speaker in speakers %}
+        <div>
+            <img src="{% if speaker.img %}{{ speaker.img.url }}{% endif %}" alt="" width="100%">
+            <p>
+                <strong>{{speaker.full_name}}</strong>
+            </p>
+            <details>
+                <summary>Read the speaker's bio</summary>
+                {{speaker.bio}}
+            </details>
+        </div>
+    {% endfor %}
+
+    <h2>Partners</h2>
+    {% for partner in partners %}
+    <div>
+        <img src="{% if partner.img %}{{ partner.img.url }}{% endif %}" alt="" width="100%">
+        <p>
+            <strong>{{partner.name}}</strong>
+        </p>
+    </div>
+    {% endfor %}
+    
+    <form action="" id="reg" method="post">
         {% csrf_token %}
         {{form.as_p}}
-        <button class=" button-p" type="submit">submit</button>
+        <button class="w3-button w3-blue" type="submit">submit</button>
         <div>
             {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
-                <li class="{{ message.tags }}">
+                <li class="{{ message.tags }} w3-green">
                     {{ message|safe }}
                     <a href="#" class="close">x</a>
                 </li>
