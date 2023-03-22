@@ -6,7 +6,7 @@
         {% csrf_token %}
         <label for="key">Enter Secret Key</label>
         <input type="password" name="key" id="key">
-        <button type="submit">Submit</button>
+        <button class="button-p" type="submit">Submit</button>
         <div class="w3-red  w3-top" id="timecatch">
             {% for message in messages %}
             <div {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}
