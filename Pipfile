@@ -16,6 +16,8 @@ dj-database-url = "*"
 django-celery ="*"
 celery = {extras = ["redis"], version = "*"}
 requests = "*"
+boto3 = "*"
+django-storages = "*"
 
 [dev-packages]
 

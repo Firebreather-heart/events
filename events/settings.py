@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'event_manager',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -137,7 +138,7 @@ STATICFILES_DIRS =[os.path.join(BASE_DIR,'static')]
 STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles') 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
+MEDIA_ROOT = ''
 MEDIA_URL = '/media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -167,3 +168,12 @@ CELERY_TASK_SERIALIZER = "json"
 CELERY_ACCEPT_CONTENT = ["json", "msgpack"]
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
+AWS_ACCESS_KEY_ID = 'AKIATFCW6SA2L2FXQWV5'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'rafevents'
+AWS_S3_REGION_NAME = 'us-east-1'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_DEFAULT_ACL = 'public-read'
+
+# Set the location where uploaded media files should be stored
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
