@@ -40,10 +40,7 @@ def register(request, link):
                     Have a nice day!
                 '''
                 task_result = send_mail_task.delay(payload=payload, recipient=mail, subject='Event Registration',filepath=None )
-                if task_result.successful():
-                    print(f'Reg successful')
-                else:
-                    print(f'Error sending reg msg: {task_result.result}')
+                
                 return render(request, 'success.html', {'event':event})
 
     else:
@@ -205,10 +202,6 @@ def sendIv(request, link):
                 subject = subject,
                 filepath = None,
             )
-            if task_result.successful():
-                print(f'Invitation sent to {person.f_name} ({recipient})')
-            else:
-                print(f'Error sending invitation to {person.f_name} ({recipient}): {task_result.result}')
             return(redirect('event_detail', link=link))
 
     return render(request, 'email.html')
